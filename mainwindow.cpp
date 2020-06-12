@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QtDebug>
 #include "dialog.h"
+#include "passwddialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -54,4 +55,10 @@ void MainWindow::on_pushButton_clicked()
     Dialog *dialog = new Dialog();
     dialog->show();
     qDebug() << "show dialog";
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+     PasswdDialog *passwdDialog = new PasswdDialog();
+     passwdDialog->show();
 }

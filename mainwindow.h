@@ -27,5 +27,6 @@ private slots:
     void finished(int exitCode, QProcess::ExitStatus exitStatus);
 
 
+    void on_pushButton_2_clicked();
 };
 #endif // MAINWINDOW_H

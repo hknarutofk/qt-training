@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QProcess>
+#include <QGraphicsView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +20,8 @@ public:
 private:
     Ui::MainWindow *ui;
     QProcess *cmd;
+    QPixmap pix;
+    QGraphicsScene sense;
 
 private slots:
     void on_readoutput();
@@ -28,5 +31,6 @@ private slots:
 
 
     void on_pushButton_2_clicked();
+    void on_pushButton_3_clicked();
 };
 #endif // MAINWINDOW_H

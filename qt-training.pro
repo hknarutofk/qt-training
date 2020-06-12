@@ -19,19 +19,25 @@ SOURCES += \
     dialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    passwddialog.cpp
+    passwddialog.cpp \
+    processdialog.cpp
 
 HEADERS += \
     dialog.h \
     mainwindow.h \
-    passwddialog.h
+    passwddialog.h \
+    processdialog.h
 
 FORMS += \
     dialog.ui \
     mainwindow.ui \
-    passwddialog.ui
+    passwddialog.ui \
+    processdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res.qrc

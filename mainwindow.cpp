@@ -3,6 +3,8 @@
 #include <QtDebug>
 #include "dialog.h"
 #include "passwddialog.h"
+#include "processdialog.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,8 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(cmd , SIGNAL(readyReadStandardOutput()) , this , SLOT(on_readoutput()));
     connect(cmd , SIGNAL(readyReadStandardError()) , this , SLOT(on_readerror()));
     connect(cmd , SIGNAL(finished(int, QProcess::ExitStatus)) , this , SLOT(finished(int, QProcess::ExitStatus)));
-
-
+    pix.load(":/new/prefix1/bg.jpeg");
+    ui->graphicsView->setScene(&sense);
+    sense.addPixmap(pix);
 }
 
 MainWindow::~MainWindow()
@@ -61,4 +64,10 @@ void MainWindow::on_pushButton_2_clicked()
 {
      PasswdDialog *passwdDialog = new PasswdDialog();
      passwdDialog->show();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    ProcessDialog * dlg = new ProcessDialog();
+    dlg->show();
 }

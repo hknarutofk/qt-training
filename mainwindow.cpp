@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtDebug>
+#include "dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -46,7 +47,11 @@ void MainWindow::finished(int exitCode, QProcess::ExitStatus exitStatus)
 
 void MainWindow::on_pushButton_clicked()
 {
-    cmd->start("sudo -S dnf install vim -y");
-    cmd->waitForStarted();
-    qDebug() << "fdfdsfds";
+//    cmd->start("sudo -S dnf install vim -y");
+//    cmd->waitForStarted();
+//    qDebug() << "fdfdsfds";
+
+    Dialog *dialog = new Dialog();
+    dialog->show();
+    qDebug() << "show dialog";
 }

@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowFlag(Qt::FramelessWindowHint);
+
     this->cmd = new QProcess();
     connect(cmd , SIGNAL(readyReadStandardOutput()) , this , SLOT(on_readoutput()));
     connect(cmd , SIGNAL(readyReadStandardError()) , this , SLOT(on_readerror()));
@@ -69,5 +71,5 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_3_clicked()
 {
     ProcessDialog * dlg = new ProcessDialog();
-    dlg->show();
+    dlg->show();    
 }

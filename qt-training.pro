@@ -17,20 +17,36 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     dialog.cpp \
+    downloaddialog.cpp \
+    fileiodialog.cpp \
     main.cpp \
     mainwindow.cpp \
+    openssldialog.cpp \
     passwddialog.cpp \
-    processdialog.cpp
+    processdialog.cpp \
+    debpkginstaller.cpp \
+    memoryutil.cpp \
+    pkexecexecutor.cpp
 
 HEADERS += \
     dialog.h \
+    downloaddialog.h \
+    fileiodialog.h \
     mainwindow.h \
+    openssldialog.h \
     passwddialog.h \
-    processdialog.h
+    processdialog.h \
+    debpkginstaller.h \
+    log.h \
+    memoryutil.h \
+    pkexecexecutor.h
 
 FORMS += \
     dialog.ui \
+    downloaddialog.ui \
+    fileiodialog.ui \
     mainwindow.ui \
+    openssldialog.ui \
     passwddialog.ui \
     processdialog.ui
 
@@ -41,3 +57,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     res.qrc
+
+LIBS += -lcrypto

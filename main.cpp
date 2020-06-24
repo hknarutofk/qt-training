@@ -4,6 +4,10 @@
 #include <QApplication>
 #include <QString>
 #include <QDebug>
+#include "httputil.h"
+#include "log.h"
+#include "updater.h"
+
 void testQString(){
     char * buffer = "abcd中文";
     QString qstr = QString::fromLocal8Bit(buffer, 4);
@@ -31,14 +35,8 @@ void testInt(){
 
 int main(int argc, char *argv[])
 {
-    testQString();
-    testInt();
-    return 0;
     QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
-
-    OpensslDialog dlg;
-    dlg.show();
+    MainWindow w;
+    w.show();
     return a.exec();
 }

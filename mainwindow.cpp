@@ -4,6 +4,7 @@
 #include "dialog.h"
 #include "passwddialog.h"
 #include "processdialog.h"
+#include "updater.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -11,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setWindowFlag(Qt::FramelessWindowHint);
+//    this->setWindowFlag(Qt::FramelessWindowHint);
 
     this->cmd = new QProcess();
     connect(cmd , SIGNAL(readyReadStandardOutput()) , this , SLOT(on_readoutput()));
@@ -72,4 +73,10 @@ void MainWindow::on_pushButton_3_clicked()
 {
     ProcessDialog * dlg = new ProcessDialog();
     dlg->show();    
+}
+
+void MainWindow::on_pushButton_checkUpdate_clicked()
+{
+    Updater u;
+    u.checkUpdate();
 }

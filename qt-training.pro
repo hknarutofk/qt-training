@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,6 +19,7 @@ SOURCES += \
     dialog.cpp \
     downloaddialog.cpp \
     fileiodialog.cpp \
+    httputil.cpp \
     main.cpp \
     mainwindow.cpp \
     openssldialog.cpp \
@@ -26,12 +27,14 @@ SOURCES += \
     processdialog.cpp \
     debpkginstaller.cpp \
     memoryutil.cpp \
-    pkexecexecutor.cpp
+    pkexecexecutor.cpp \
+    updater.cpp
 
 HEADERS += \
     dialog.h \
     downloaddialog.h \
     fileiodialog.h \
+    httputil.h \
     mainwindow.h \
     openssldialog.h \
     passwddialog.h \
@@ -39,7 +42,8 @@ HEADERS += \
     debpkginstaller.h \
     log.h \
     memoryutil.h \
-    pkexecexecutor.h
+    pkexecexecutor.h \
+    updater.h
 
 FORMS += \
     dialog.ui \

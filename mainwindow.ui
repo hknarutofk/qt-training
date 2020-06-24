@@ -72,10 +72,24 @@
      </brush>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_checkUpdate">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>150</y>
+      <width>111</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>checkUpdate</string>
+    </property>
+   </widget>
    <zorder>graphicsView</zorder>
    <zorder>pushButton</zorder>
    <zorder>pushButton_2</zorder>
    <zorder>pushButton_3</zorder>
+   <zorder>pushButton_checkUpdate</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

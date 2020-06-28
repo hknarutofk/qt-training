@@ -28,6 +28,7 @@ SOURCES += \
     debpkginstaller.cpp \
     memoryutil.cpp \
     pkexecexecutor.cpp \
+    singleton.cpp \
     updater.cpp
 
 HEADERS += \
@@ -43,6 +44,7 @@ HEADERS += \
     log.h \
     memoryutil.h \
     pkexecexecutor.h \
+    singleton.h \
     updater.h
 
 FORMS += \

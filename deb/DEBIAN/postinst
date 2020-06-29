@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Kylin系统 设置程序可执行权限
+# kysec_set -n exectl -v trusted /opt/hknarutofk/qt-training/qt-training
+
+# 注册icon
+xdg-icon-resource install --noupdate --mode system --context "qt-training" --size 128 "/opt/hknarutofk/qt-training/icon.png" application/x-hkn
+
+# 注册.hkn 打开方式 /usr/share/applications/mimeapps.list
+sed -i '/application\/x-hkn=/d' /usr/share/applications/mimeapps.list
+sed -i '2i\application/x-hkn=qt-training.desktop' /usr/share/applications/mimeapps.list
+
+# 注册x-handler-hkn
+# 先删除掉旧信息，防止出现重复
+sed -i '/x-schema-handler\/hkn=/d' /usr/share/applications/mimeapps.list
+sed -i '2i\x-schema-handler/hkn=qt-training.desktop' /usr/share/applications/mimeapps.list
+
+update-mime-database /usr/share/mime
+
+update-desktop-database
+
+

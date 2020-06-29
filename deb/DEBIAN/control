@@ -1,0 +1,11 @@
+Package: qt-training
+Priority: extra
+Section: hknarutofk
+Installed-Size: 136
+Maintainer: 1@1.1
+Architecture: amd64
+Version: 1.0
+Provides: hknarutofk
+Depends: libqt5widgets5,libqt5gui5,libqt5network5,
+	libqt5core5a,libstdc++6,libgcc1
+Description: qt-training

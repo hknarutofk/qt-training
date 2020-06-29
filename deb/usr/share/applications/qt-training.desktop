@@ -1,0 +1,14 @@
+[Desktop Entry]
+Comment=qt-training
+Comment[zh_CN]=练习
+Exec=/opt/hknarutofk/qt-training/qt-training %F
+GenericName=qt-training
+GenericName[zh_CN]=练习
+MimeType=application/x-hkn
+Name=qt-training
+Name[zh_CN]=练习
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=GTK;Utility;Core;Qt;
+Icon=qt-training

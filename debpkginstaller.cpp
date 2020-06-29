@@ -6,7 +6,7 @@ DebPkgInstaller::DebPkgInstaller(QString debPackagePath, QObject *parent): QObje
     this->debPackagePath = debPackagePath;
     cmd = QString("apt install -y -f %1").arg(debPackagePath);
     logDebug() << cmd;
-    pkexec = new PkexecExecutor(cmd);
+    pkexec = PkexecExecutor::getInstance();
     connect(pkexec , SIGNAL(errorEvent(QString)) , this , SLOT(onError(QString)));
     connect(pkexec , SIGNAL(finishedEvent()) , this , SLOT(onFinished()));
 }
@@ -25,7 +25,7 @@ DebPkgInstaller::~DebPkgInstaller()
  */
 void DebPkgInstaller::startInstall()
 {
-    pkexec->start();
+    pkexec->sudo(cmd);
     logDebug() << "started";
     emit errorEvent("test");
 }

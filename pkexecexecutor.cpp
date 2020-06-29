@@ -2,23 +2,24 @@
 #include <QProcess>
 #include "log.h"
 
-PkexecExecutor::PkexecExecutor(QString script, QObject *parent) : QObject(parent)
+//定义静态变量
+PkexecExecutor *PkexecExecutor::instance;
+QMutex PkexecExecutor::mutex;
+
+PkexecExecutor::PkexecExecutor()
 {
-    this->script = script;
-    logDebug() << script;
     process = new QProcess();
     connect(process , SIGNAL(readyReadStandardOutput()) , this , SLOT(onProcessReadoutput()));
     connect(process , SIGNAL(readyReadStandardError()) , this , SLOT(onReaderror()));
     connect(process , SIGNAL(finished(int, QProcess::ExitStatus)) , this , SLOT(onFinished(int, QProcess::ExitStatus)));
-    step = 0;
-
 }
 
 PkexecExecutor::~PkexecExecutor()
 {
-    if(process){
-        delete process;
+    if(process->isOpen()){
+        process->kill();
     }
+    process->deleteLater();
 }
 
 void PkexecExecutor::start()
@@ -27,9 +28,6 @@ void PkexecExecutor::start()
     process->start("pkexec bash");
     if(process->waitForStarted()){
         logDebug() << "process started";
-        step = 1;
-        logDebug() << "step1";
-        process->write("whoami\n");
     }
     else{
         logDebug() << "process cannot start";
@@ -38,37 +36,41 @@ void PkexecExecutor::start()
     }
 }
 
+PkexecExecutor *PkexecExecutor::getInstance()
+{
+    if(instance == nullptr){
+        mutex.lock();
+        if(instance == nullptr){
+            instance = new PkexecExecutor();
+            instance->start();
+        }
+        mutex.unlock();
+    }
+    return instance;
+}
+
+void PkexecExecutor::sudo(QString script)
+{
+    logDebug() << "lock"; //强制排队
+    mutex.lock();
+    logDebug() << script;
+    process->write(script.toUtf8());
+    //写入回车符号，开始执行。 如果有多行脚本，采用\n分割
+    process->write("\n");
+
+    //写入结束标识，用于判断指令执行完毕
+    process->write(QString("echo _finished_command_:%1, exitCode=`echo $?`\n").arg(script).toUtf8());
+}
+
 void PkexecExecutor::onProcessReadoutput()
 {
     QString outStr = QString::fromUtf8(process->readAllStandardOutput().data());
     logDebug() << QString("stdout: %1").arg(outStr);
-
-    //简单状态机判断
-    switch (step) {
-    //检测root权限
-    case 1:
-        if(outStr.remove("\n").compare(STR_ROOT) == 0){
-            //检测成功，切换到安装指令执行阶段
-            step = 2;
-            logDebug() << "get root privileges, start to execute script";
-            process->write(script.toUtf8());
-            //写入回车符号，开始执行。 如果有多行脚本，采用\n分割
-            process->write("\n");
-            //写入退出指令，待安装程序执行完毕，自动退出
-            process->write("exit $?\n");
-        }
-        else {
-            logDebug() << "cannot get root privilges, exit";
-            emit errorEvent("未能获取root权限");
-            process->kill();
-            emit finishedEvent();
-        }
-        break;
-    case 2:
-        //暂时不判断回显
-        break;
-    default:
-        break;
+    if(outStr.startsWith("_finished_command_")){
+        // 调用类接受到此事件，应当立即断开finishedEvent信号槽连接
+        mutex.unlock();
+        logDebug() << "unlock";
+        emit finishedEvent();
     }
 }
 

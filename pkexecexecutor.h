@@ -3,8 +3,11 @@
 
 #include <QObject>
 #include <QProcess>
+#include <QMutex>
+#include <QSemaphore>
 /**
   封装操作系统pkexec调用，用于获取root权限
+  采用单例模式，整个进程只需要用户输入一次密码，保持具有root权限的bash
  * @brief The PkexecUtil class
  */
 class PkexecExecutor : public QObject
@@ -12,27 +15,41 @@ class PkexecExecutor : public QObject
     Q_OBJECT
 
 private:
-    QString script;
-    QProcess *process = nullptr;
-    /**
-      用于异步判断命令阶段
-      0=初始值， 1=检测root， 2=执行安装， 其他待补充
-     * @brief step
-     */
-    int step;
+    QProcess *process = nullptr;    
+    QSemaphore semaphore;
 
-public:
+    //声明静态变量
+    static PkexecExecutor *instance;
+    static QMutex mutex;
+
     /**
       执行原理 echo scrpit | pkexec sh
      * @brief PkexecExecutor
      * @param script 多条指令采用;分割
      */
-    explicit PkexecExecutor(QString script, QObject *parent = nullptr);
-    ~PkexecExecutor();
+    PkexecExecutor();
+    /**
+      立即触发pkexec bash弹出系统授权窗口
+     * @brief start
+     */
     void start();
 
+public:
+    ~PkexecExecutor();
 
-    const QString STR_ROOT="root";
+    /**
+      获取实例，立即触发pkexec bash弹出系统授权窗口
+     * @brief getInstance
+     * @return
+     */
+    static PkexecExecutor *getInstance();
+
+    /**
+        在root权限下执行，等价于系统sudo
+     * @brief sudo
+     * @param script
+     */
+    void sudo(QString script);
 
 signals:
     /**

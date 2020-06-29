@@ -7,6 +7,9 @@
 #include "httputil.h"
 #include "log.h"
 #include "updater.h"
+#include "pkexecexecutor.h"
+#include <QRegExp>
+
 
 void testQString(){
     char * buffer = "abcd中文";
@@ -33,10 +36,36 @@ void testInt(){
 
 }
 
+void testQRegex(){
+    QRegExp reg(".*aaa=(\\d+).*");
+    QString in = "aaa=1z,aaa=22fdf";
+    bool result = reg.exactMatch(in);
+    logDebug() << result;
+    if(result){
+        logDebug() << reg.cap(1);
+    }
+
+}
+
+void testQRegex2(){
+    QRegExp rx("(\\d+)");
+    QString str = "Offsets: 12 14 99 231 7";
+    QStringList list;
+    int pos = 0;
+
+    while ((pos = rx.indexIn(str, pos)) != -1) {
+        list << rx.cap(1);
+        pos += rx.matchedLength();
+    }
+    logDebug() << list;
+}
+
 int main(int argc, char *argv[])
-{
+{ 
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
+    PkexecExecutor *exec = PkexecExecutor::getInstance();
+    exec->sudo("ls /");
     return a.exec();
 }

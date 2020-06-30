@@ -16,6 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    base64imagedialog.cpp \
+    base64imageutil.cpp \
     dialog.cpp \
     downloaddialog.cpp \
     fileiodialog.cpp \
@@ -32,6 +34,8 @@ SOURCES += \
     updater.cpp
 
 HEADERS += \
+    base64imagedialog.h \
+    base64imageutil.h \
     dialog.h \
     downloaddialog.h \
     fileiodialog.h \
@@ -48,6 +52,7 @@ HEADERS += \
     updater.h
 
 FORMS += \
+    base64imagedialog.ui \
     dialog.ui \
     downloaddialog.ui \
     fileiodialog.ui \

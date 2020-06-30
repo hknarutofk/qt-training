@@ -9,7 +9,7 @@
 #include "updater.h"
 #include "pkexecexecutor.h"
 #include <QRegExp>
-
+#include "base64imagedialog.h"
 
 void testQString(){
     char * buffer = "abcd中文";
@@ -60,12 +60,15 @@ void testQRegex2(){
     logDebug() << list;
 }
 
+
 int main(int argc, char *argv[])
 { 
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    PkexecExecutor *exec = PkexecExecutor::getInstance();
-    exec->sudo("ls /");
+//    MainWindow w;
+//    w.show();
+
+    Base64ImageDialog dlg;
+    dlg.show();
+
     return a.exec();
 }

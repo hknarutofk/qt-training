@@ -1,6 +1,7 @@
 #include "pkexecexecutor.h"
 #include <QProcess>
 #include "log.h"
+#include <QThread>
 
 //定义静态变量
 PkexecExecutor *PkexecExecutor::instance;
@@ -51,13 +52,15 @@ PkexecExecutor *PkexecExecutor::getInstance()
 
 void PkexecExecutor::sudo(QString script)
 {
-    logDebug() << "lock"; //强制排队
-    mutex.lock();
+//    logDebug() << QString("[%1] try lock").arg((long)QThread::currentThread()->currentThreadId());
+    //强制排队
+//    mutex.lock();
+//    logDebug() << QString("[%1] get lock").arg((long)QThread::currentThread()->currentThreadId());
     logDebug() << script;
     process->write(script.toUtf8());
     //写入回车符号，开始执行。 如果有多行脚本，采用\n分割
     process->write("\n");
-
+    logDebug() << QString("writed: %1").arg(script);
     //写入结束标识，用于判断指令执行完毕
     process->write(QString("echo _finished_command_:%1, exitCode=`echo $?`\n").arg(script).toUtf8());
 }
@@ -68,8 +71,8 @@ void PkexecExecutor::onProcessReadoutput()
     logDebug() << QString("stdout: %1").arg(outStr);
     if(outStr.startsWith("_finished_command_")){
         // 调用类接受到此事件，应当立即断开finishedEvent信号槽连接
-        mutex.unlock();
-        logDebug() << "unlock";
+//        mutex.unlock();
+//        logDebug() << QString("[%1] unlock").arg((long)QThread::currentThread()->currentThreadId());
         emit finishedEvent();
     }
 }

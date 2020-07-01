@@ -31,7 +31,9 @@ SOURCES += \
     memoryutil.cpp \
     pkexecexecutor.cpp \
     singleton.cpp \
-    updater.cpp
+    updater.cpp \
+    textprogressbar.cpp \
+    downloadmanager.cpp
 
 HEADERS += \
     base64imagedialog.h \
@@ -49,7 +51,9 @@ HEADERS += \
     memoryutil.h \
     pkexecexecutor.h \
     singleton.h \
-    updater.h
+    updater.h \
+    textprogressbar.h \
+    downloadmanager.h
 
 FORMS += \
     base64imagedialog.ui \

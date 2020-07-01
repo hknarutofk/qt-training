@@ -20,6 +20,11 @@ private:
     QString debPackagePath;
     QString cmd;
     PkexecExecutor *pkexec = nullptr;
+    /**
+        由于PkexecExecutor采用单例，提供给所有调用着，为防止处理其他客户端的事件，设计一个标识，sudo返回后值=true，受到finishedEvent，值=false
+     * @brief shouldCatchEvent
+     */
+    bool shouldCatchEvent = false;
 
 signals:
     /**

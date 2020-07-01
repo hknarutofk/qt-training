@@ -13,9 +13,7 @@ DebPkgInstaller::DebPkgInstaller(QString debPackagePath, QObject *parent): QObje
 
 DebPkgInstaller::~DebPkgInstaller()
 {
-    if(pkexec){
-        delete pkexec;
-    }
+
 }
 
 /**
@@ -26,19 +24,24 @@ DebPkgInstaller::~DebPkgInstaller()
 void DebPkgInstaller::startInstall()
 {
     pkexec->sudo(cmd);
+    shouldCatchEvent = true;
     logDebug() << "started";
-    emit errorEvent("test");
 }
 
 void DebPkgInstaller::onError(QString errorMessage)
 {
-    logDebug() << QString("get error： %1").arg(errorMessage);
-    emit errorEvent(errorMessage);//向上传递
+    if(shouldCatchEvent){
+        logDebug() << QString("get error： %1").arg(errorMessage);
+        emit errorEvent(errorMessage);//向上传递
+    }
 }
 
 void DebPkgInstaller::onFinished()
 {
-    logDebug() << "finished";
-    emit finishedEvent();//向上传递
-    logDebug() "emit finishedEvent";
+    if(shouldCatchEvent){
+        logDebug() << "finished";
+        emit finishedEvent();//向上传递
+        logDebug() "emit finishedEvent";
+        shouldCatchEvent = false;//事件结束，标记不再捕获信号
+    }
 }

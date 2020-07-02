@@ -24,6 +24,7 @@ SOURCES += \
     httputil.cpp \
     main.cpp \
     mainwindow.cpp \
+    mainwindow2.cpp \
     openssldialog.cpp \
     passwddialog.cpp \
     processdialog.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     fileiodialog.h \
     httputil.h \
     mainwindow.h \
+    mainwindow2.h \
     openssldialog.h \
     passwddialog.h \
     processdialog.h \
@@ -61,6 +63,7 @@ FORMS += \
     downloaddialog.ui \
     fileiodialog.ui \
     mainwindow.ui \
+    mainwindow2.ui \
     openssldialog.ui \
     passwddialog.ui \
     processdialog.ui

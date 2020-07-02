@@ -17,6 +17,7 @@
 #include <openssl/bio.h>
 #include <openssl/pem.h>
 #include <QByteArray>
+#include "mainwindow2.h"
 
 void testQString(){
     char * buffer = "abcd中文";
@@ -77,14 +78,7 @@ void testBase64(){
 
 }
 
-
-int main(int argc, char *argv[])
-{ 
-    testQRegex();
-    return 0;
-    QApplication a(argc, argv);
-    //    MainWindow w;
-    //    w.show();
+void testOpenssl(){
     RSA *rsa_publickey = NULL;
     BIO *bio = NULL;
     char *pubString = "-----BEGIN PUBLIC KEY-----\n"
@@ -102,6 +96,15 @@ int main(int argc, char *argv[])
     printf("%X\n", rsa_publickey);
     RSA_print_fp(stdout, rsa_publickey, 0);
     BIO_free(bio);
+}
+
+int main(int argc, char *argv[])
+{ 
+
+    QApplication a(argc, argv);
+    MainWindow2 w;
+    w.show();
+
 
     return a.exec();
 }

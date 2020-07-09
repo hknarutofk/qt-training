@@ -14,7 +14,7 @@ Base64ImageDialog::Base64ImageDialog(QWidget *parent) :
     QGraphicsScene *scene = new QGraphicsScene;
     scene->addPixmap(QPixmap::fromImage(image));
     ui->graphicsView->setScene(scene);
-    ui->graphicsView->resize(image.width() + 10, image.height() + 10);
+//    ui->graphicsView->resize(image.width() + 10, image.height() + 10);
 
     QString b64 = Base64ImageUtil::png_2_base64_string(image);
     logDebug() << b64;

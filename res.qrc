@@ -3,4 +3,9 @@
         <file>bg.jpeg</file>
         <file>btn_bg.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>icon.png</file>
+        <file>gif.gif</file>
+        <file>uploading.gif</file>
+    </qresource>
 </RCC>

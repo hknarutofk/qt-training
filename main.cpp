@@ -5,7 +5,6 @@
 #include <QString>
 #include <QDebug>
 #include "httputil.h"
-#include "log.h"
 #include "updater.h"
 #include "pkexecexecutor.h"
 #include <QRegExp>
@@ -18,6 +17,12 @@
 #include <openssl/pem.h>
 #include <QByteArray>
 #include "mainwindow2.h"
+#include "drawellipsedialog.h"
+#include "gifdialog.h"
+#include "log.h"
+#include <QUrl>
+#include <QProcess>
+#include "capturescreendialog.h"
 
 void testQString(){
     char * buffer = "abcd中文";
@@ -98,13 +103,63 @@ void testOpenssl(){
     BIO_free(bio);
 }
 
+void testUrlEncodeDecode(){
+    QString param = "123,./:中文 ";
+    QString encoded = QUrl::toPercentEncoding(param);
+    logDebug() << encoded;
+    param = QUrl::fromPercentEncoding(encoded.toUtf8());
+    logDebug() << param;
+
+    QUrl url("http://www.a.c/?p=123%2C.%2F%3A%E4%B8%AD%E6%96%87%20&z=cdfd&fdfs=.fdjls#432432");
+    logDebug() << url.hasQuery();
+    logDebug() << url.query();
+
+}
+
+void testParam(const QUrl &url){
+    logDebug() << url;
+}
+
+void testffmpeg(){
+    QProcess process;
+    QStringList args;
+    args << "-video_size" << "1332x841"<< "-framerate"<< "6"<< "-f"<< "x11grab"<< "-i"<< "$DISPLAY+1024x1024"<< "/tmp/Capturer_gif_20200706_134526_602.mp4";
+    logDebug() << args;
+
+    process.start("/usr/bin/ffmpeg", args);
+    bool result = process.waitForStarted();
+    logDebug() << result;
+    result = process.waitForFinished();
+    logDebug() << result;
+    process.kill();
+    result = process.waitForFinished();
+    logDebug() << result;
+
+    //test fail...
+}
+
 int main(int argc, char *argv[])
 { 
 
-    QApplication a(argc, argv);
-    MainWindow2 w;
-    w.show();
+    QApplication a(argc, argv);    
+    QString str = "abcdefffff";
+    QString cn_str = "中文中文中文";
+    QString mix_str = "bcdef中文文";
 
+    logDebug() << str;
+    logDebug() << cn_str;
+    logDebug() << mix_str;
 
+    logDebug() << str.length();
+    logDebug() << str.size();
+    logDebug() << str.toUtf8().size();
+
+    logDebug() << cn_str.length();
+    logDebug() << cn_str.size();
+    logDebug() << cn_str.toUtf8().size();
+
+    logDebug() << mix_str.length();
+    logDebug() << mix_str.size();
+    logDebug() << mix_str.toUtf8().size();
     return a.exec();
 }

@@ -18,10 +18,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     base64imagedialog.cpp \
     base64imageutil.cpp \
+    capturescreendialog.cpp \
     dialog.cpp \
     downloaddialog.cpp \
+    drawellipsedialog.cpp \
     fileiodialog.cpp \
+    gifdialog.cpp \
     httputil.cpp \
+    log2.cpp \
     main.cpp \
     mainwindow.cpp \
     mainwindow2.cpp \
@@ -39,10 +43,14 @@ SOURCES += \
 HEADERS += \
     base64imagedialog.h \
     base64imageutil.h \
+    capturescreendialog.h \
     dialog.h \
     downloaddialog.h \
+    drawellipsedialog.h \
     fileiodialog.h \
+    gifdialog.h \
     httputil.h \
+    log2.h \
     mainwindow.h \
     mainwindow2.h \
     openssldialog.h \
@@ -59,9 +67,12 @@ HEADERS += \
 
 FORMS += \
     base64imagedialog.ui \
+    capturescreendialog.ui \
     dialog.ui \
     downloaddialog.ui \
+    drawellipsedialog.ui \
     fileiodialog.ui \
+    gifdialog.ui \
     mainwindow.ui \
     mainwindow2.ui \
     openssldialog.ui \
